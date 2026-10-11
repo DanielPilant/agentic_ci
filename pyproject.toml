@@ -1,0 +1,11 @@
+[project]
+name = "agentic-ci"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain>=1.4.4",
+    "langchain-ollama>=1.1.0",
+    "typer>=0.27.3",
+]
