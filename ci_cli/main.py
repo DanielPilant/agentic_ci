@@ -1,29 +1,11 @@
 import typer
-from langchain.agents import create_agent
-from langchain.tools import tool
-app = typer.Typer()
-
 from pathlib import Path
+from agent import agent
+from rich.console import Console
+from rich.markdown import Markdown
 
-agent = create_agent(
-    model="ollama:qwen3:8b",
-    system_prompt="You are a helpful assistant, your task is to run unit tests and complexity analysis on the code provided.",
-)    
-
-
-
-
-@app.command()
-def lines_counter(file_path: str = typer.Argument(help="Path to the file to count lines")):
-    """
-    Count the number of lines in a file.
-    """
-    try:
-        with open(file_path, encoding="utf-8") as file:
-            line_count = sum(1 for line in file)
-            typer.echo(line_count)
-    except:
-        typer.echo("File path not found")
+console = Console()
+app = typer.Typer()
 
 
 # command that sends a code file to an LLM model for testing and returns the results of the test
@@ -41,7 +23,7 @@ def code_tester(file_path: str = typer.Argument(help="Path to the file to test c
             "content": f"Please test the code in the file located at {file_path}, witch have the code {code}. Provide unit tests and analyze the code complexity."
         }]
     })
-    typer.echo(result["messages"][-1].text)
+    console.print(Markdown(result["messages"][-1].text))
     
     
 
