@@ -1,6 +1,6 @@
 import typer
 from pathlib import Path
-from agent import agent
+from .agent import agent
 from rich.console import Console
 from rich.markdown import Markdown
 
